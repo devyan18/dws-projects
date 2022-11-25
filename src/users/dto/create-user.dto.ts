@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty } from 'class-validator';
 import { User } from '../entities/user.entity';
 
 export class CreateUserDto implements User {
@@ -17,4 +17,10 @@ export class CreateUserDto implements User {
 
   @IsNotEmpty()
   person: string;
+
+  @IsArray()
+  projects: string[];
+
+  @IsArray()
+  tags: string[];
 }

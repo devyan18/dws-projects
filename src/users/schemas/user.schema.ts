@@ -20,6 +20,12 @@ export class User implements UserEntity {
 
   @Prop({ type: Types.ObjectId, ref: 'Person' })
   person: string;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Project' }] })
+  projects: string[];
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Tag' }] })
+  tags: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

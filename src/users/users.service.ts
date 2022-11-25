@@ -70,4 +70,40 @@ export class UsersService {
       return false;
     }
   }
+
+  async addProjectToUser(userId: string, projectId: string) {
+    const userFound = await this.existUser(userId);
+
+    if (!userFound) {
+      throw new HttpException('User Not Found', HttpStatus.BAD_REQUEST);
+    }
+
+    return await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: {
+          projects: projectId,
+        },
+      },
+      { new: true },
+    );
+  }
+
+  async addTagToUser(userId: string, tagId: string) {
+    const userFound = await this.existUser(userId);
+
+    if (!userFound) {
+      throw new HttpException('User Not Found', HttpStatus.BAD_REQUEST);
+    }
+
+    return await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: {
+          tags: tagId,
+        },
+      },
+      { new: true },
+    );
+  }
 }

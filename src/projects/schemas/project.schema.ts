@@ -5,7 +5,7 @@ import { Project as ProjectEntity } from '../entities/project.entity';
 export type ProjectDocument = HydratedDocument<Project>;
 
 @Schema({ timestamps: true })
-class Project implements ProjectEntity {
+export class Project implements ProjectEntity {
   @Prop({ type: String })
   repository_url: string;
 

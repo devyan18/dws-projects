@@ -4,4 +4,6 @@ export class User {
   password: string;
   isPremium: boolean;
   person: string;
+  projects: string[];
+  tags: string[];
 }

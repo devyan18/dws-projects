@@ -10,10 +10,13 @@ import environments from './config/environments';
 import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(environments.database.mongo, {
       connectionFactory: (connection) => {
         connection.plugin(require('mongoose-autopopulate'));
@@ -25,6 +28,7 @@ import { TasksModule } from './tasks/tasks.module';
     PersonModule,
     ProjectsModule,
     TasksModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
