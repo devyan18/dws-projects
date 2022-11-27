@@ -1,18 +1,13 @@
-import {
-  IsBoolean,
-  IsInstance,
-  IsNotEmpty,
-  IsNotEmptyObject,
-} from 'class-validator';
-import { RGB, Tag } from '../entities/tag.entity';
+import { IsBoolean, IsHexColor, IsNotEmpty } from 'class-validator';
+import { Tag } from '../entities/tag.entity';
 
 export class CreateTagDto implements Partial<Tag> {
   @IsNotEmpty()
   tag_name: string;
 
-  @IsNotEmptyObject()
-  @IsInstance(RGB)
-  tag_color: RGB;
+  @IsNotEmpty()
+  @IsHexColor()
+  tag_color: string;
 
   @IsNotEmpty()
   @IsBoolean()

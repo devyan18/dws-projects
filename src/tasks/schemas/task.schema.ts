@@ -7,7 +7,7 @@ export type TaskDocument = HydratedDocument<Task>;
 @Schema({ timestamps: true })
 export class Task implements TaskEntity {
   @Prop({ type: String })
-  task_desciption: string;
+  task_description: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Project' })
   project: string;

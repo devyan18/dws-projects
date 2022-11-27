@@ -9,7 +9,7 @@ export class Project implements ProjectEntity {
   @Prop({ type: String })
   repository_url: string;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Task' }] })
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Task', autopopulate: true }] })
   tasks: string[];
 
   @Prop({ type: Types.ObjectId, ref: 'Task' })

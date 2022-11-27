@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { RGB, Tag as TagEntity } from '../entities/tag.entity';
+import { Tag as TagEntity } from '../entities/tag.entity';
 
 export type TagDocument = HydratedDocument<Tag>;
 
@@ -9,14 +9,8 @@ export class Tag implements TagEntity {
   @Prop({ type: String })
   tag_name: string;
 
-  @Prop({
-    type: {
-      red: Number,
-      green: Number,
-      blue: Number,
-    },
-  })
-  tag_color: RGB;
+  @Prop({ type: String })
+  tag_color: string;
 
   @Prop({ type: Boolean })
   white_font: boolean;

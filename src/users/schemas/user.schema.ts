@@ -15,16 +15,18 @@ export class User implements UserEntity {
   @Prop({ type: String })
   password: string;
 
-  @Prop({ type: Boolean })
+  @Prop({ type: Boolean, default: false })
   isPremium: boolean;
 
   @Prop({ type: Types.ObjectId, ref: 'Person' })
   person: string;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Project' }] })
+  @Prop({
+    type: [{ type: Types.ObjectId, ref: 'Project', autopopulate: true }],
+  })
   projects: string[];
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Tag' }] })
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Tag', autopopulate: true }] })
   tags: string[];
 }
 

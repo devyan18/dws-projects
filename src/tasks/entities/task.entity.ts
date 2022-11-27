@@ -1,5 +1,5 @@
 export class Task {
-  task_desciption: string;
+  task_description: string;
   project: string;
   tags: string[];
   user: string;

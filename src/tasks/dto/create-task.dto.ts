@@ -3,7 +3,7 @@ import { Task } from '../entities/task.entity';
 
 export class CreateTaskDto implements Partial<Task> {
   @IsNotEmpty()
-  task_desciption: string;
+  task_description: string;
 
   @IsNotEmpty()
   project: string;

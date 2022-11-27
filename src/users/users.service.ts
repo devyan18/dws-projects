@@ -106,4 +106,14 @@ export class UsersService {
       { new: true },
     );
   }
+
+  async addPersonToUser(userId: string, personId: string) {
+    return await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        person: personId,
+      },
+      { new: true },
+    );
+  }
 }
