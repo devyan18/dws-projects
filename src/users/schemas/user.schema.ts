@@ -28,6 +28,9 @@ export class User implements UserEntity {
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Tag', autopopulate: true }] })
   tags: string[];
+
+  @Prop({ type: String })
+  avatar: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 import { User } from '../entities/user.entity';
 
 export class CreateUserDto implements Partial<User> {
@@ -11,9 +11,11 @@ export class CreateUserDto implements Partial<User> {
   @IsNotEmpty()
   password: string;
 
+  @IsOptional()
   @IsArray()
   projects: string[];
 
+  @IsOptional()
   @IsArray()
   tags: string[];
 }

@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 import { Task } from '../entities/task.entity';
 
 export class CreateTaskDto implements Partial<Task> {
@@ -8,6 +8,7 @@ export class CreateTaskDto implements Partial<Task> {
   @IsNotEmpty()
   project: string;
 
+  @IsOptional()
   @IsArray()
   tags: string[];
 }

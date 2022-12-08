@@ -59,4 +59,19 @@ export class ProjectsController {
     const user = req.user as UserDocument;
     return this.projectsService.remove(projectId, user._id.toString());
   }
+
+  @Patch(':projectId/logo')
+  async uploadFile(
+    @Param('projectId') projectId: string,
+    @Body() { logo_url }: { logo_url: string },
+    @Request() req,
+  ) {
+    const user = req.user as UserDocument;
+
+    return this.projectsService.edit_logo(
+      projectId,
+      logo_url,
+      user._id.toString(),
+    );
+  }
 }

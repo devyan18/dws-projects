@@ -8,6 +8,7 @@ import {
   Delete,
   Request,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -27,19 +28,23 @@ export class TasksController {
     return this.tasksService.create(createTaskDto, user._id.toString());
   }
 
-  @Get('')
-  findAll(@Request() req) {
+  @Get(':projectId')
+  findAll(@Request() req, @Param('projectId') projectId: string) {
     const user = req.user as UserDocument;
-    return this.tasksService.findAll(user._id.toString());
+    return this.tasksService.findAll(projectId, user._id.toString());
   }
 
-  @Get(':taskId')
-  findOne(@Param('taskId') taskId: string, @Request() req) {
+  @Get(':projectId/:taskId')
+  findOne(
+    @Param('projectId') projectId: string,
+    @Param('taskId') taskId: string,
+    @Request() req,
+  ) {
     const user = req.user as UserDocument;
-    return this.tasksService.findOne(taskId, user._id.toString());
+    return this.tasksService.findOne(projectId, taskId, user._id.toString());
   }
 
-  @Patch(':taskId')
+  @Put(':taskId')
   update(
     @Param('taskId') taskId: string,
     @Body() updateTaskDto: UpdateTaskDto,
@@ -47,6 +52,12 @@ export class TasksController {
   ) {
     const user = req.user as UserDocument;
     return this.tasksService.update(taskId, updateTaskDto, user._id.toString());
+  }
+
+  @Patch(':taskId')
+  toggle(@Param('taskId') taskId: string, @Request() req) {
+    const user = req.user as UserDocument;
+    return this.tasksService.toggleComplete(taskId, user._id.toString());
   }
 
   @Delete(':taskId')

@@ -71,6 +71,12 @@ export class ProjectsService {
       throw new HttpException('Project Not Found', HttpStatus.BAD_REQUEST);
     }
 
+    const project = await this.findOne(projectId, userId);
+
+    if (project.tasks) {
+      throw new HttpException('Tasks Is Not Empty', HttpStatus.BAD_REQUEST);
+    }
+
     return await this.projectModel.findOneAndDelete({
       _id: projectId,
       user: userId,
@@ -101,6 +107,25 @@ export class ProjectsService {
         $push: {
           tasks: taskId,
         },
+      },
+      { new: true },
+    );
+  }
+
+  async edit_logo(projectId: string, logo_url: string, userId: string) {
+    const projectFound = await this.existProject(projectId);
+
+    if (!projectFound) {
+      throw new HttpException('Project Not Found', HttpStatus.BAD_REQUEST);
+    }
+
+    return await this.projectModel.findOneAndUpdate(
+      {
+        _id: projectId,
+        user: userId,
+      },
+      {
+        logo: logo_url,
       },
       { new: true },
     );

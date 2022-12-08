@@ -12,8 +12,16 @@ export class Task implements TaskEntity {
   @Prop({ type: Types.ObjectId, ref: 'Project' })
   project: string;
 
+  @Prop({ type: Boolean, default: false })
+  completed: boolean;
+
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Tag', autopopulate: true }] })
   tags: string[];
+
+  @Prop({
+    type: [{ type: Types.ObjectId, ref: 'Comment', autopopulate: true }],
+  })
+  comments: [];
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   user: string;

@@ -28,12 +28,16 @@ export class TasksService {
     return task;
   }
 
-  async findAll(userId: string) {
-    return await this.taskModel.find({ user: userId });
+  async findAll(projectId: string, userId: string) {
+    return await this.taskModel.find({ user: userId, project: projectId });
   }
 
-  async findOne(taskId: string, userId: string) {
-    return await this.taskModel.findOne({ _id: taskId, user: userId });
+  async findOne(projectId: string, taskId: string, userId: string) {
+    return await this.taskModel.findOne({
+      _id: taskId,
+      user: userId,
+      project: projectId,
+    });
   }
 
   async update(taskId: string, updateTaskDto: UpdateTaskDto, userId: string) {
@@ -46,6 +50,20 @@ export class TasksService {
 
   async remove(taskId: string, userId: string) {
     return await this.taskModel.findOneAndDelete({ _id: taskId, user: userId });
+  }
+
+  async toggleComplete(taskId: string, userId: string) {
+    const task = await this.taskModel.findOne({ _id: taskId, user: userId });
+
+    if (!task) {
+      throw new HttpException('Task Not Found', 404);
+    }
+
+    return await this.taskModel.findOneAndUpdate(
+      { _id: taskId, user: userId },
+      { completed: !task.completed },
+      { new: true },
+    );
   }
 
   async existTask(taskId: string, userId: string): Promise<boolean> {
@@ -68,6 +86,37 @@ export class TasksService {
       {
         $push: {
           tags: tagId,
+        },
+      },
+      { new: true },
+    );
+  }
+
+  async deleteAlltasksByProject(projectId: string, userId: string) {
+    return await this.taskModel.deleteMany({
+      user: userId,
+      project: projectId,
+    });
+  }
+
+  async addCommentToTask(taskId: string, commentId: string, userId: string) {
+    return await this.taskModel.findOneAndUpdate(
+      { _id: taskId, user: userId },
+      {
+        $push: {
+          comments: commentId,
+        },
+      },
+      { new: true },
+    );
+  }
+
+  async removeCommentToTask(taskId: string, commentId: string, userId: string) {
+    return await this.taskModel.findOneAndUpdate(
+      { _id: taskId, user: userId },
+      {
+        $pull: {
+          comments: commentId,
         },
       },
       { new: true },
