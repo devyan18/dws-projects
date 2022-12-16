@@ -67,4 +67,15 @@ export class CommentsService {
       user: userId,
     });
   }
+
+  async removeAllCommentsFromTask(taskId: string, userId: string) {
+    const comments = await this.commentModel.find({
+      task: taskId,
+      user: userId,
+    });
+
+    comments.forEach(async (comment) => {
+      await this.remove(taskId, comment._id.toString(), userId);
+    });
+  }
 }
