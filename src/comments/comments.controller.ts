@@ -56,6 +56,15 @@ export class CommentsController {
     );
   }
 
+  @Delete(':taskId')
+  removeAll(@Param('taskId') taskId: string, @Request() req) {
+    const user = req.user as UserDocument;
+    return this.commentsService.removeAllCommentsFromTask(
+      taskId,
+      user._id.toString(),
+    );
+  }
+
   @Delete(':taskId/:commentId')
   remove(
     @Param('taskId') taskId: string,

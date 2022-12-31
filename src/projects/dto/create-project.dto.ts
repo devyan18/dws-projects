@@ -6,7 +6,6 @@ export class CreateProjectDto implements Partial<Project> {
   project_title: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsUrl()
   repository_url: string;
 

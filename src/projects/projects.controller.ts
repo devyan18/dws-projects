@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Request,
+  Put,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -73,5 +74,12 @@ export class ProjectsController {
       logo_url,
       user._id.toString(),
     );
+  }
+
+  @Put()
+  async createStartProject(@Request() req) {
+    const user = req.user as UserDocument;
+
+    return this.projectsService.createDefaultProject(user._id.toString());
   }
 }

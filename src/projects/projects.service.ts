@@ -130,4 +130,27 @@ export class ProjectsService {
       { new: true },
     );
   }
+
+  async createDefaultProject(userId: string) {
+    const user = await this.userService.findOne(userId);
+
+    const projects = await this.findAll(userId);
+
+    if (user.projects.length > 0) {
+      return;
+    }
+
+    if (projects.length > 0) {
+      return;
+    }
+
+    const project = await this.projectModel.create({
+      name: 'Starter Project',
+      user: userId,
+    });
+
+    await this.userService.addProjectToUser(userId, project._id.toString());
+
+    return project;
+  }
 }

@@ -29,7 +29,9 @@ export class TasksService {
   }
 
   async findAll(projectId: string, userId: string) {
-    return await this.taskModel.find({ user: userId, project: projectId });
+    return await this.taskModel
+      .find({ user: userId, project: projectId })
+      .sort({ updatedAt: -1 });
   }
 
   async findOne(projectId: string, taskId: string, userId: string) {
