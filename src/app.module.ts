@@ -18,7 +18,7 @@ import { CommentsModule } from './comments/comments.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(environments.database.mongo, {
+    MongooseModule.forRoot(environments().database.mongo, {
       connectionFactory: (connection) => {
         connection.plugin(require('mongoose-autopopulate'));
         return connection;

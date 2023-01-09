@@ -6,7 +6,7 @@ export async function preSave() {
     return;
   }
 
-  const salt = await hash(this.password, environments.crypt.saltRounds);
+  const salt = await hash(this.password, environments().crypt.saltRounds);
 
   this.password = salt;
 }

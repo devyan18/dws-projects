@@ -12,7 +12,7 @@ import { JwtStrategy } from './jwt.strategy';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: environments.crypt.jwtSecret,
+      secret: environments().crypt.jwtSecret,
     }),
   ],
   providers: [AuthService, JwtStrategy],

@@ -1,4 +1,7 @@
-export default {
+console.log('Loading environments.ts...');
+console.log(process.env.MONGO_DB_URI);
+
+export default () => ({
   port: process.env.PORT || 3000,
   database: {
     mongo:
@@ -13,4 +16,4 @@ export default {
     api_key: process.env.API_KEY || '',
     api_secret: process.env.API_SECRET || '',
   },
-};
+});
